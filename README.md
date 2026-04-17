@@ -4,10 +4,10 @@ A bioinformatics tool for Nanopore sequencing processing, mapping 3rd-generation
 
 ## Installation & Environment
 
-First, set up the conda environment with the required dependencies (note: `samtools` is also required for BAM manipulation):
+Create a conda environment with all dependencies, including `kraken2` and `bracken` for the new profiling features:
 
 ```bash
-conda create -n nanoesst fastplong sylph minimap2 pymlst samtools pigz
+conda create -n nanoesst fastplong sylph minimap2 pymlst samtools pigz kraken2 bracken
 conda activate nanoesst
 ```
 
@@ -18,30 +18,28 @@ cd nanoesst-main
 pip install -e .
 ```
 
-> **Important**: Run the tool from the `nanoesst-main` directory, as it expects the reference genomes and MLST databases to be located in the local `db/` folder.
-
 ## Usage
 
-The tool supports two modes: `process` (for a single file) and `batch` (for a folder of files).
+The tool requires you to choose an identification algorithm using `-a sylph` or `-a kraken`. Based on your choice, you must provide the corresponding database path (`-syldb` or `-krakendb`). 
 
 ### 1. Process Mode (Single Sample)
-Use this mode to process a single fastq.gz file.
 
+**Using Sylph:**
 ```bash
-nanoesst process -i barcode01.fastq.gz -n SK-1 -db path/to/database.syldb -t 16
+nanoesst process -i barcode01.fastq.gz -n SK-1 -a sylph -syldb path/to/database.syldb -t 16
 ```
-* `-i`: Path to the input fastq.gz file.
-* `-n`: Sample name (will be used as the prefix for all output files).
-* `-db`: Path to the sylph database.
+
+**Using Kraken2:**
+```bash
+nanoesst process -i barcode01.fastq.gz -n SK-1 -a kraken -krakendb path/to/kraken_db -t 16
+```
 
 ### 2. Batch Mode (Multiple Samples)
-Use this mode to process a directory containing multiple fastq.gz files.
 
+**Using Kraken2:**
 ```bash
-nanoesst batch -i ./raw_fastq_dir/ -n mapping.txt -db path/to/database.syldb -t 16
+nanoesst batch -i ./raw_fastq_dir/ -n mapping.txt -a kraken -krakendb path/to/kraken_db -t 16
 ```
-* `-i`: Directory containing all `.fastq.gz` files.
-* `-n`: A two-column mapping file (tab or space separated). The first column is the barcode (e.g., `barcode01`), and the second column is the sample name (e.g., `SK-1`).
 
 **Example `mapping.txt`:**
 ```text
