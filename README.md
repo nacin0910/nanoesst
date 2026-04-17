@@ -7,7 +7,7 @@ A bioinformatics tool for Nanopore sequencing processing, mapping 3rd-generation
 First, set up the conda environment with the required dependencies (note: `samtools` is also required for BAM manipulation):
 
 ```bash
-conda create -n nanoesst fastplong sylph minimap2 pymlst samtools
+conda create -n nanoesst fastplong sylph minimap2 pymlst samtools pigz
 conda activate nanoesst
 ```
 
