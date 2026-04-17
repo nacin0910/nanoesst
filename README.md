@@ -57,4 +57,3 @@ barcode03   SK-3
 3. **Profiling**: Runs `sylph profile` to output `2.sylph_out/$sample_profile.tsv`. It then parses the `Contig_name` and `Taxonomic_abundance` columns to check if any ESKAPEE pathogens are present (>1% abundance).
 4. **Mapping**: If present, maps clean reads to the pathogen reference genome using `minimap2` and extracts them using `samtools` to `3.minimap2/$sample_pathogen.fastq.gz`.
 5. **Typing**: Runs `claMLST` on the mapped reads and writes ST results to `4.pymlst/$sample_pathogen_result.txt`.
-```
