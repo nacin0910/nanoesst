@@ -64,3 +64,22 @@ This file gathers all typing results for the current run into an easy-to-read ta
 * **ST**: The predicted Sequence Type (e.g., `991`).
 * **Genes**: A string of the housekeeping genes checked (e.g., `dinB-icdA-pabB-polB...`).
 * **Type**: The specific allele numbers corresponding to the genes (e.g., `120-316-150-211...`).
+
+```mermaid
+graph TD
+    A[START] --> B[Assign Sample Name]
+    B --> D[Read Input fastq.gz]
+    D --> H[Step 1: Quality Control & <br/>Trimming<br/>fastplong]
+    H --> I[Step 2: Species Identify<br/>sylph OR Kraken2+Bracken]
+    I --> J{map-all flag?}
+    J -->|No| K[Identify ESKAPEE pathogens<br/>with &gt;1% abundance]
+    J -->|Yes| L[Include ALL 6 ESKAPEE <br>pathogens]
+    K --> M[Step 3: Target Pathogen <br>Mapping<br/>minimap2 + samtools view<br/>Filter with user-defined <br>-F & -q]
+    L --> M
+    M --> N[Step 4: Extract Mapped Reads<br/>samtools fastq + pigz]
+    N --> O[Step 5: Sequence Typing<br/>claMLST search2 --single]
+    O --> P{batch Mode?}
+    P -->|Yes| H
+    P -->|No| Q[END: <br>Generate ST_summary.csv<br/>Summarize only current run]
+```
+
