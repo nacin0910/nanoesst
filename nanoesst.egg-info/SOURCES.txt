@@ -1,0 +1,8 @@
+setup.py
+nanoesst/__init__.py
+nanoesst/main.py
+nanoesst.egg-info/PKG-INFO
+nanoesst.egg-info/SOURCES.txt
+nanoesst.egg-info/dependency_links.txt
+nanoesst.egg-info/entry_points.txt
+nanoesst.egg-info/top_level.txt
