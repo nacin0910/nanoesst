@@ -80,6 +80,6 @@ graph TD
     N --> O[Step 5: Sequence Typing<br/>claMLST search2 --single]
     O --> P{batch Mode?}
     P -->|Yes| H
-    P -->|No| Q[END: <br>Generate ST_summary.csv<br/>Summarize only current run]
+    P -->|No| Q[END: <br>Generate ST_summary.csv]
 ```
 
